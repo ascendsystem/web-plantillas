@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex — Agencia Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#ffffff;--dark:#0d0d0d;--accent:#ff3c00;--light:#f5f5f5;--muted:#888;--border:#e8e8e8;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--dark);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  .logo-a{font-weight:700;font-size:1.4rem;letter-spacing:-0.03em;}
+  .logo-a span{color:var(--accent);}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--dark);}
+  .cta-nav{background:var(--dark);color:#fff;padding:0.6rem 1.5rem;font-size:0.85rem;font-weight:600;text-decoration:none;border-radius:4px;transition:all 0.2s;}
+  .cta-nav:hover{background:var(--accent);}
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding:8rem 4rem 4rem;gap:4rem;align-items:center;border-bottom:1px solid var(--border);}
+  .hero-content{}
+  .hero-tag{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;}
+  h1{font-size:clamp(2.5rem,5vw,5rem);font-weight:700;line-height:1.0;letter-spacing:-0.04em;margin-bottom:1.5rem;}
+  h1 .line2{color:var(--muted);}
+  .hero-desc{font-size:1rem;color:var(--muted);line-height:1.75;max-width:45ch;margin-bottom:2.5rem;}
+  .hero-actions{display:flex;gap:1rem;align-items:center;}
+  .btn-red{background:var(--accent);color:#fff;padding:0.85rem 2rem;font-weight:600;font-size:0.9rem;text-decoration:none;border-radius:4px;transition:all 0.2s;}
+  .btn-red:hover{background:#e03000;transform:translateY(-1px);}
+  .btn-dark{background:transparent;border:1px solid var(--border);color:var(--dark);padding:0.85rem 2rem;font-weight:500;font-size:0.9rem;text-decoration:none;border-radius:4px;transition:all 0.2s;}
+  .btn-dark:hover{border-color:var(--dark);}
+  .hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .v-card{background:var(--light);border-radius:12px;padding:1.75rem;border:1px solid var(--border);}
+  .v-card:first-child{grid-column:span 2;background:var(--dark);color:#fff;}
+  .v-num{font-size:2.5rem;font-weight:700;letter-spacing:-0.04em;margin-bottom:0.3rem;}
+  .v-num span{color:var(--accent);}
+  .v-label{font-size:0.8rem;color:var(--muted);}
+  .v-card:first-child .v-label{color:#666;}
+  .v-bar{height:6px;background:#2a2a2a;border-radius:3px;margin-top:1rem;overflow:hidden;}
+  .v-bar-fill{height:100%;background:var(--accent);border-radius:3px;width:78%;}
+  /* CLIENTS */
+  .clients{padding:3rem 4rem;border-bottom:1px solid var(--border);}
+  .clients-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;}
+  .clients-logos{display:flex;gap:3rem;align-items:center;flex-wrap:wrap;}
+  .client-logo{font-weight:700;font-size:1.05rem;letter-spacing:-0.02em;color:#ccc;}
+  /* SERVICES */
+  .services{padding:6rem 4rem;}
+  .section-tag{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1rem;}
+  .section-h{font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:-0.03em;line-height:1.05;margin-bottom:3rem;}
+  .services-list{display:flex;flex-direction:column;gap:0;}
+  .svc-item{display:grid;grid-template-columns:1fr 2fr 1fr;align-items:center;padding:2rem 0;border-top:1px solid var(--border);gap:2rem;transition:background 0.2s;cursor:pointer;}
+  .svc-item:last-child{border-bottom:1px solid var(--border);}
+  .svc-item:hover{background:var(--light);padding-left:1rem;padding-right:1rem;}
+  .svc-num{font-size:0.75rem;color:var(--muted);font-weight:600;letter-spacing:0.05em;}
+  .svc-name{font-size:1.25rem;font-weight:600;letter-spacing:-0.02em;}
+  .svc-tags{display:flex;gap:0.5rem;flex-wrap:wrap;}
+  .svc-tag{font-size:0.7rem;background:var(--light);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:100px;color:var(--muted);}
+  .svc-arrow{text-align:right;color:var(--muted);font-size:1.2rem;transition:transform 0.2s;}
+  .svc-item:hover .svc-arrow{transform:translateX(4px);color:var(--accent);}
+  /* CASES */
+  .cases{padding:6rem 4rem;background:var(--dark);color:#fff;}
+  .cases .section-tag{color:var(--accent);}
+  .cases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem;}
+  .case-card{background:#1a1a1a;border-radius:16px;overflow:hidden;border:1px solid #2a2a2a;transition:transform 0.3s;}
+  .case-card:hover{transform:translateY(-4px);}
+  .case-img{aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;}
+  .case-result{position:absolute;top:1rem;right:1rem;background:var(--accent);color:#fff;font-size:0.72rem;font-weight:700;padding:0.3rem 0.75rem;border-radius:100px;}
+  .case-body{padding:1.5rem;}
+  .case-cat{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#555;margin-bottom:0.4rem;}
+  .case-name{font-size:1.1rem;font-weight:600;margin-bottom:0.4rem;}
+  .case-desc{font-size:0.83rem;color:#888;line-height:1.65;}
+  /* TEAM */
+  .team{padding:6rem 4rem;}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem;}
+  .team-card{border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow 0.25s;}
+  .team-card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.1);}
+  .team-photo{aspect-ratio:1;background:linear-gradient(135deg,var(--light),#e0e0e0);display:flex;align-items:center;justify-content:center;font-size:3rem;}
+  .team-info{padding:1.25rem;}
+  .team-name{font-size:0.95rem;font-weight:600;margin-bottom:0.2rem;}
+  .team-role{font-size:0.78rem;color:var(--muted);}
+  /* CONTACT */
+  .contact-section{padding:6rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;background:var(--light);}
+  .contact-section h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:1rem;}
+  .contact-section p{color:var(--muted);font-size:0.9rem;line-height:1.75;margin-bottom:2rem;}
+  .contact-info div{display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;margin-bottom:0.75rem;color:var(--muted);}
+  .contact-form-a{display:flex;flex-direction:column;gap:1rem;}
+  .contact-form-a input,.contact-form-a select,.contact-form-a textarea{background:#fff;border:1px solid var(--border);padding:0.85rem 1rem;font-family:'Space Grotesk';font-size:0.875rem;outline:none;border-radius:6px;transition:border-color 0.2s;}
+  .contact-form-a input:focus,.contact-form-a select:focus,.contact-form-a textarea:focus{border-color:var(--accent);}
+  .contact-form-a textarea{min-height:120px;resize:none;}
+  .form-submit{background:var(--dark);color:#fff;border:none;padding:1rem 2.5rem;font-family:'Space Grotesk';font-size:0.9rem;font-weight:600;cursor:pointer;border-radius:6px;transition:all 0.2s;align-self:flex-start;}
+  .form-submit:hover{background:var(--accent);}
+  footer{padding:1.5rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+  footer p{font-size:0.78rem;color:var(--muted);}
+  .f-links{display:flex;gap:1.5rem;}
+  .f-links a{font-size:0.78rem;color:var(--muted);text-decoration:none;}
+  @media(max-width:768px){nav,.hero,.services,.cases,.team,.contact-section{padding:1rem 1.5rem !important;}.hero{grid-template-columns:1fr;}.cases-grid,.team-grid{grid-template-columns:1fr;}.contact-section{grid-template-columns:1fr;gap:3rem;}.svc-item{grid-template-columns:1fr;gap:0.5rem;}.clients{padding:2rem 1.5rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo-a">Apex<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#cases">Casos</a></li>
+    <li><a href="#team">Equipo</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+  <a href="#contact" class="cta-nav">Empezar proyecto</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">🔥 Agencia digital — Barcelona</div>
+    <h1>Hacemos crecer<br><span class="line2">marcas digitales</span></h1>
+    <p class="hero-desc">Estrategia, diseño y desarrollo para empresas que quieren resultados reales. Sin palabrería, solo trabajo que genera impacto.</p>
+    <div class="hero-actions">
+      <a href="#cases" class="btn-red">Ver casos de éxito</a>
+      <a href="#contact" class="btn-dark">Hablar con nosotros</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="v-card">
+      <div class="v-num">+<span>340%</span></div>
+      <div class="v-label">Crecimiento medio de nuestros clientes en 12 meses</div>
+      <div class="v-bar"><div class="v-bar-fill"></div></div>
+    </div>
+    <div class="v-card">
+      <div class="v-num" style="font-size:1.8rem;">120+</div>
+      <div class="v-label" style="color:var(--muted);">Proyectos completados</div>
+    </div>
+    <div class="v-card">
+      <div class="v-num" style="font-size:1.8rem;">4.9★</div>
+      <div class="v-label" style="color:var(--muted);">Valoración media clientes</div>
+    </div>
+  </div>
+</section>
+
+<section class="clients">
+  <p class="clients-label">Marcas que confían en nosotros</p>
+  <div class="clients-logos">
+    <span class="client-logo">Typeform</span>
+    <span class="client-logo">Factorial</span>
+    <span class="client-logo">Glovo</span>
+    <span class="client-logo">Wallapop</span>
+    <span class="client-logo">Holaluz</span>
+    <span class="client-logo">Amenitiz</span>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-tag">Servicios</div>
+  <h2 class="section-h">Lo que hacemos<br>mejor que nadie</h2>
+  <div class="services-list">
+    <div class="svc-item">
+      <div class="svc-num">01</div>
+      <div><div class="svc-name">Estrategia de Marketing Digital</div><div class="svc-tags" style="margin-top:0.5rem;"><span class="svc-tag">SEO</span><span class="svc-tag">SEM</span><span class="svc-tag">Social Ads</span><span class="svc-tag">Email</span></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-item">
+      <div class="svc-num">02</div>
+      <div><div class="svc-name">Diseño Web & UX/UI</div><div class="svc-tags" style="margin-top:0.5rem;"><span class="svc-tag">Figma</span><span class="svc-tag">Webflow</span><span class="svc-tag">React</span></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-item">
+      <div class="svc-num">03</div>
+      <div><div class="svc-name">Desarrollo Web & E-commerce</div><div class="svc-tags" style="margin-top:0.5rem;"><span class="svc-tag">Next.js</span><span class="svc-tag">Shopify</span><span class="svc-tag">WooCommerce</span></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-item">
+      <div class="svc-num">04</div>
+      <div><div class="svc-name">Identidad de Marca</div><div class="svc-tags" style="margin-top:0.5rem;"><span class="svc-tag">Logo</span><span class="svc-tag">Brand Book</span><span class="svc-tag">Copywriting</span></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc-item">
+      <div class="svc-num">05</div>
+      <div><div class="svc-name">Producción de Contenido</div><div class="svc-tags" style="margin-top:0.5rem;"><span class="svc-tag">Vídeo</span><span class="svc-tag">Fotografía</span><span class="svc-tag">Motion</span><span class="svc-tag">Podcast</span></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<section class="cases" id="cases">
+  <div class="section-tag">Casos de éxito</div>
+  <h2 class="section-h" style="color:#fff;">Resultados que<br>hablan solos</h2>
+  <div class="cases-grid">
+    <div class="case-card">
+      <div class="case-img">🛒<div class="case-result">+280% ventas</div></div>
+      <div class="case-body">
+        <div class="case-cat">E-commerce · Paid Media</div>
+        <div class="case-name">TerraShop — Moda sostenible</div>
+        <div class="case-desc">Rediseño completo de la tienda y estrategia de paid media que triplicó las ventas en 6 meses.</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <div class="case-img">📱<div class="case-result">+180k usuarios</div></div>
+      <div class="case-body">
+        <div class="case-cat">App · Growth · ASO</div>
+        <div class="case-name">FitTrack — App de fitness</div>
+        <div class="case-desc">Estrategia de ASO y campañas de adquisición que llevaron la app al top 10 de la App Store.</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <div class="case-img">🏠<div class="case-result">x4 leads</div></div>
+      <div class="case-body">
+        <div class="case-cat">Lead Gen · SEO · Web</div>
+        <div class="case-name">InmoStar — Inmobiliaria</div>
+        <div class="case-desc">Nueva web y estrategia SEO local que cuadriplicó los leads cualificados en el primer trimestre.</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <div class="case-img">🍃<div class="case-result">+420% tráfico</div></div>
+      <div class="case-body">
+        <div class="case-cat">Branding · Content · SEO</div>
+        <div class="case-name">NaturLab — Cosmética natural</div>
+        <div class="case-desc">Rebranding completo y estrategia de contenidos que convirtió la marca en referente del sector.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="section-tag">El equipo</div>
+  <h2 class="section-h">Las personas detrás<br>de los resultados</h2>
+  <div class="team-grid">
+    <div class="team-card"><div class="team-photo">👨‍💼</div><div class="team-info"><div class="team-name">Carlos Mendez</div><div class="team-role">CEO & Estrategia</div></div></div>
+    <div class="team-card"><div class="team-photo">👩‍🎨</div><div class="team-info"><div class="team-name">Sara Valls</div><div class="team-role">Creative Director</div></div></div>
+    <div class="team-card"><div class="team-photo">👨‍💻</div><div class="team-info"><div class="team-name">Miquel Torres</div><div class="team-role">Head of Dev</div></div></div>
+    <div class="team-card"><div class="team-photo">👩‍📊</div><div class="team-info"><div class="team-name">Laura Font</div><div class="team-role">Paid Media Lead</div></div></div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div>
+    <div class="section-tag">Contacto</div>
+    <h2>Cuéntanos tu proyecto</h2>
+    <p>Somos una agencia pequeña que trabaja con pocos clientes a la vez para dar resultados excepcionales. Si crees que podemos encajar, escríbenos.</p>
+    <div class="contact-info">
+      <div>📧 hola@apexagencia.es</div>
+      <div>📞 +34 931 234 567</div>
+      <div>📍 Carrer Consell de Cent, 292 · Barcelona</div>
+    </div>
+  </div>
+  <div class="contact-form-a">
+    <input type="text" placeholder="Nombre y empresa">
+    <input type="email" placeholder="Email de contacto">
+    <select><option>Tipo de proyecto...</option><option>Diseño web</option><option>Marketing digital</option><option>Branding</option><option>E-commerce</option><option>Otro</option></select>
+    <input type="text" placeholder="Presupuesto estimado">
+    <textarea placeholder="Cuéntanos sobre tu proyecto y objetivos..."></textarea>
+    <button class="form-submit">Enviar propuesta →</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 Apex Digital Agency S.L. — Barcelona</p>
+  <div class="f-links">
+    <a href="#">LinkedIn</a><a href="#">Instagram</a><a href="#">Behance</a><a href="#">Privacidad</a>
+  </div>
+</footer>
+</body>
+</html>
