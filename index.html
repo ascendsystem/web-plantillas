@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TemplateForge — Plantillas Web Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b10;
+    --surface: #0f1318;
+    --surface2: #161c24;
+    --border: rgba(255,255,255,0.07);
+    --accent: #f0ff44;
+    --accent2: #44ffb8;
+    --accent3: #ff6b6b;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --card-hover: rgba(240,255,68,0.04);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(8,11,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent); color: #000;
+    padding: 0.55rem 1.4rem; border-radius: 6px;
+    font-size: 0.875rem; font-weight: 500; text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 10rem 2rem 6rem;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(240,255,68,0.08); border: 1px solid rgba(240,255,68,0.2);
+    color: var(--accent); font-size: 0.78rem; font-weight: 500;
+    padding: 0.35rem 1rem; border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    max-width: 16ch;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 .line-accent { color: var(--accent); display: block; }
+  .hero-sub {
+    margin-top: 1.75rem;
+    font-size: 1.15rem; color: var(--muted);
+    max-width: 50ch; line-height: 1.65;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent); color: #000;
+    padding: 0.8rem 2rem; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(240,255,68,0.3);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    padding: 0.8rem 2rem; border-radius: 8px;
+    font-size: 0.95rem; border: 1px solid var(--border);
+    text-decoration: none; transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.25); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 700; color: var(--text);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* GLOW BG */
+  .hero-glow {
+    position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(240,255,68,0.06) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION ─── */
+  section { padding: 6rem 4rem; position: relative; z-index: 1; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.1; max-width: 20ch;
+  }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ─── FILTERS ─── */
+  .filters {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .filter-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--muted); padding: 0.45rem 1.1rem;
+    border-radius: 100px; font-size: 0.82rem; cursor: pointer;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent); color: #000; border-color: var(--accent);
+  }
+
+  /* ─── TEMPLATE GRID ─── */
+  .template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+  .template-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+    position: relative;
+  }
+  .template-card:hover {
+    border-color: rgba(240,255,68,0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    background: var(--card-hover);
+  }
+  .card-preview {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background: var(--surface2);
+  }
+  .card-preview iframe {
+    width: 200%; height: 200%;
+    transform: scale(0.5);
+    transform-origin: top left;
+    border: none; pointer-events: none;
+  }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,19,24,0.9) 0%, transparent 50%);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 1rem; opacity: 0; transition: opacity 0.25s;
+  }
+  .template-card:hover .card-overlay { opacity: 1; }
+  .preview-btn, .buy-btn-card {
+    padding: 0.4rem 0.9rem; border-radius: 6px;
+    font-size: 0.78rem; font-weight: 500; cursor: pointer;
+    border: none; transition: all 0.15s;
+  }
+  .preview-btn {
+    background: rgba(255,255,255,0.12); color: #fff;
+    text-decoration: none;
+  }
+  .preview-btn:hover { background: rgba(255,255,255,0.22); }
+  .buy-btn-card {
+    background: var(--accent); color: #000;
+  }
+  .buy-btn-card:hover { opacity: 0.85; }
+  .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+  .card-tags { display: flex; gap: 0.4rem; margin-bottom: 0.75rem; }
+  .tag {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem; border-radius: 4px;
+  }
+  .tag-saas { background: rgba(68,255,184,0.1); color: var(--accent2); }
+  .tag-restaurant { background: rgba(255,107,107,0.1); color: var(--accent3); }
+  .tag-portfolio { background: rgba(240,255,68,0.1); color: var(--accent); }
+  .tag-agency { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  .tag-ecommerce { background: rgba(251,191,36,0.1); color: #fbbf24; }
+  .tag-startup { background: rgba(59,130,246,0.1); color: #60a5fa; }
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 600; margin-bottom: 0.35rem;
+  }
+  .card-desc { font-size: 0.84rem; color: var(--muted); margin-bottom: 1.1rem; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; }
+  .card-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem; font-weight: 700; color: var(--accent);
+  }
+  .card-price .original {
+    font-size: 0.8rem; color: var(--muted);
+    text-decoration: line-through; font-family: 'DM Sans';
+    margin-left: 0.5rem; font-weight: 300;
+  }
+  .buy-btn {
+    background: var(--accent); color: #000;
+    padding: 0.55rem 1.2rem; border-radius: 8px;
+    font-size: 0.84rem; font-weight: 500; cursor: pointer;
+    border: none; transition: all 0.15s; font-family: inherit;
+  }
+  .buy-btn:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 20px rgba(240,255,68,0.35);
+  }
+  .card-rating { display: flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; color: var(--muted); }
+  .stars { color: #fbbf24; font-size: 0.7rem; }
+
+  /* ─── FEATURES ─── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .feature-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.75rem;
+    transition: border-color 0.2s;
+  }
+  .feature-card:hover { border-color: rgba(240,255,68,0.15); }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1.1rem;
+  }
+  .feature-icon.yellow { background: rgba(240,255,68,0.12); }
+  .feature-icon.green { background: rgba(68,255,184,0.12); }
+  .feature-icon.red { background: rgba(255,107,107,0.12); }
+  .feature-icon.blue { background: rgba(59,130,246,0.12); }
+  .feature-title {
+    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .feature-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── HOW IT WORKS ─── */
+  .steps {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
+    margin-top: 3.5rem; position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 2rem; left: calc(100%/6);
+    width: calc(100% - 100%/3); height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), var(--border), transparent);
+  }
+  .step { text-align: center; }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--surface2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
+    margin: 0 auto 1.25rem; position: relative; z-index: 1;
+    color: var(--accent);
+  }
+  .step-title {
+    font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .step-desc { font-size: 0.83rem; color: var(--muted); }
+
+  /* ─── PRICING BANNER ─── */
+  .pricing-banner {
+    background: linear-gradient(135deg, rgba(240,255,68,0.08), rgba(68,255,184,0.05));
+    border: 1px solid rgba(240,255,68,0.15);
+    border-radius: 20px; padding: 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 2rem 0;
+  }
+  .banner-title {
+    font-family: 'Syne', sans-serif; font-size: 1.75rem;
+    font-weight: 700; letter-spacing: -0.02em;
+  }
+  .banner-sub { color: var(--muted); margin-top: 0.4rem; font-size: 0.9rem; }
+  .bundle-price {
+    text-align: right;
+  }
+  .bundle-price .old { color: var(--muted); text-decoration: line-through; font-size: 1.1rem; }
+  .bundle-price .new {
+    font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800;
+    color: var(--accent);
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem; margin-top: 3.5rem;
+  }
+  .testimonial {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+  }
+  .testimonial-text { font-size: 0.9rem; line-height: 1.65; color: var(--text); margin-bottom: 1.25rem; }
+  .testimonial-text::before { content: '"'; color: var(--accent); font-size: 1.5rem; }
+  .author { display: flex; align-items: center; gap: 0.75rem; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 600; color: #000;
+    flex-shrink: 0;
+  }
+  .author-name { font-size: 0.85rem; font-weight: 500; }
+  .author-role { font-size: 0.75rem; color: var(--muted); }
+
+  /* ─── FAQ ─── */
+  .faq { max-width: 720px; margin: 3.5rem auto 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--border); padding: 1.25rem 0;
+  }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; font-weight: 500; font-size: 0.95rem;
+    gap: 1rem;
+  }
+  .faq-q::after { content: '+'; color: var(--accent); font-size: 1.2rem; flex-shrink: 0; }
+  .faq-item.open .faq-q::after { content: '−'; }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    color: var(--muted); font-size: 0.875rem; line-height: 1.7;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-top: 0.75rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1.15rem; color: var(--text); text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-links { display: flex; gap: 1.75rem; }
+  .footer-links a { color: var(--muted); font-size: 0.85rem; text-decoration: none; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy { color: var(--muted); font-size: 0.8rem; }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid rgba(240,255,68,0.15);
+    border-radius: 20px; padding: 2.5rem;
+    max-width: 480px; width: 90%;
+    animation: modalIn 0.3s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+  .modal-title { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; }
+  .modal-close {
+    background: none; border: none; color: var(--muted);
+    font-size: 1.4rem; cursor: pointer; line-height: 1;
+    padding: 0; margin-left: 1rem;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-preview-tag {
+    display: inline-block; margin-bottom: 1.25rem;
+    font-size: 0.75rem; font-weight: 500;
+    padding: 0.25rem 0.7rem; border-radius: 4px;
+  }
+  .modal-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.65; }
+  .modal-features { margin-bottom: 1.75rem; }
+  .modal-features li {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.85rem; color: var(--text); margin-bottom: 0.5rem;
+    list-style: none;
+  }
+  .modal-features li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+  .modal-price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+  .modal-price { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); }
+  .modal-price-old { font-size: 0.9rem; color: var(--muted); text-decoration: line-through; }
+  .gumroad-btn {
+    width: 100%; background: var(--accent); color: #000;
+    border: none; padding: 1rem; border-radius: 10px;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
+    font-family: 'Syne', sans-serif; letter-spacing: -0.01em;
+    transition: all 0.2s;
+  }
+  .gumroad-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(240,255,68,0.35);
+  }
+  .modal-guarantee {
+    text-align: center; margin-top: 0.9rem;
+    font-size: 0.75rem; color: var(--muted);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px; background: var(--border);
+    margin: 0 4rem;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .section-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .hero-stats { gap: 1.5rem; }
+    .pricing-banner { flex-direction: column; text-align: center; gap: 1.5rem; }
+    .bundle-price { text-align: center; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .steps { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .divider { margin: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Template<span>Forge</span></a>
+  <ul class="nav-links">
+    <li><a href="#plantillas">Plantillas</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#plantillas" class="nav-cta">Ver plantillas →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span class="dot"></span> Plantillas listas para usar</div>
+  <h1>
+    Webs profesionales
+    <span class="line-accent">sin código.</span>
+  </h1>
+  <p class="hero-sub">
+    Plantillas web de alta conversión para tu negocio. Diseño moderno, totalmente personalizables y listas para publicar en minutos.
+  </p>
+  <div class="hero-actions">
+    <a href="#plantillas" class="btn-primary">Explorar plantillas</a>
+    <a href="#como-funciona" class="btn-ghost">Cómo funciona</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Plantillas premium</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">850+</div>
+      <div class="stat-label">Clientes satisfechos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">Valoración media</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">¿Por qué elegirnos?</div>
+  <h2 class="section-title">Todo lo que necesitas para lanzar</h2>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon yellow">⚡</div>
+      <div class="feature-title">Listo en minutos</div>
+      <div class="feature-desc">Descarga, personaliza con tu contenido y publica. Sin configuraciones complejas.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon green">📱</div>
+      <div class="feature-title">100% Responsive</div>
+      <div class="feature-desc">Cada plantilla se ve perfecta en móvil, tablet y escritorio desde el primer día.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon red">🎨</div>
+      <div class="feature-title">Diseño profesional</div>
+      <div class="feature-desc">Creadas por diseñadores senior. Modernas, limpias y orientadas a conversión.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon blue">💻</div>
+      <div class="feature-title">HTML + CSS puro</div>
+      <div class="feature-desc">Sin dependencias ni frameworks. Código limpio que funciona en cualquier hosting.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon yellow">🔧</div>
+      <div class="feature-title">Fácil de editar</div>
+      <div class="feature-desc">Estructura clara, comentada y fácil de adaptar. Ideal para cualquier nivel.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon green">♾️</div>
+      <div class="feature-title">Licencia vitalicia</div>
+      <div class="feature-desc">Pago único, tuya para siempre. Úsala en todos los proyectos que quieras.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLANTILLAS -->
+<section id="plantillas">
+  <div class="section-head">
+    <div>
+      <div class="section-label">Catálogo</div>
+      <h2 class="section-title">Plantillas premium</h2>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterTemplates('all', this)">Todas</button>
+    <button class="filter-btn" onclick="filterTemplates('saas', this)">SaaS</button>
+    <button class="filter-btn" onclick="filterTemplates('restaurant', this)">Restaurante</button>
+    <button class="filter-btn" onclick="filterTemplates('portfolio', this)">Portfolio</button>
+    <button class="filter-btn" onclick="filterTemplates('agency', this)">Agencia</button>
+    <button class="filter-btn" onclick="filterTemplates('ecommerce', this)">E-commerce</button>
+    <button class="filter-btn" onclick="filterTemplates('startup', this)">Startup</button>
+  </div>
+
+  <div class="template-grid" id="templateGrid">
+
+    <!-- CARD 1 -->
+    <div class="template-card reveal" data-cat="saas" onclick="openModal('saas')">
+      <div class="card-preview">
+        <iframe src="templates/saas/index.html" title="SaaS Template" loading="lazy"></iframe>
+        <div class="card-overlay">
+          <a href="templates/saas/index.html" target="_blank" class="preview-btn" onclick="e=>e.stopPropagation()">Vista previa →</a>
+          <button class="buy-btn-card" onclick="event.stopPropagation(); openModal('saas')">Comprar</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-saas">SaaS</span>
+        </div>
+        <div class="card-name">NexusApp — SaaS Landing</div>
+        <div class="card-desc">Landing page de alto impacto para producto SaaS. Hero animado, precios, testimonios y CTA optimizados.</div>
+        <div class="card-footer">
+          <div>
+            <span class="card-price">19€<span class="original">39€</span></span>
+            <div class="card-rating"><span class="stars">★★★★★</span> 4.9 (83)</div>
+          </div>
+          <button class="buy-btn" onclick="event.stopPropagation(); openModal('saas')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="template-card reveal" data-cat="restaurant" onclick="openModal('restaurant')">
+      <div class="card-preview">
+        <iframe src="templates/restaurant/index.html" title="Restaurant Template" loading="lazy"></iframe>
+        <div class="card-overlay">
+          <a href="templates/restaurant/index.html" target="_blank" class="preview-btn" onclick="e=>e.stopPropagation()">Vista previa →</a>
+          <button class="buy-btn-card" onclick="event.stopPropagation(); openModal('restaurant')">Comprar</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-restaurant">Restaurante</span>
+        </div>
+        <div class="card-name">Saveur — Restaurante Gourmet</div>
+        <div class="card-desc">Diseño elegante y apetitoso para restaurantes, cafeterías y food trucks. Con menú, reservas y galería.</div>
+        <div class="card-footer">
+          <div>
+            <span class="card-price">24€<span class="original">49€</span></span>
+            <div class="card-rating"><span class="stars">★★★★★</span> 4.8 (61)</div>
+          </div>
+          <button class="buy-btn" onclick="event.stopPropagation(); openModal('restaurant')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="template-card reveal" data-cat="portfolio" onclick="openModal('portfolio')">
+      <div class="card-preview">
+        <iframe src="templates/portfolio/index.html" title="Portfolio Template" loading="lazy"></iframe>
+        <div class="card-overlay">
+          <a href="templates/portfolio/index.html" target="_blank" class="preview-btn" onclick="e=>e.stopPropagation()">Vista previa →</a>
+          <button class="buy-btn-card" onclick="event.stopPropagation(); openModal('portfolio')">Comprar</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-portfolio">Portfolio</span>
+        </div>
+        <div class="card-name">Folio — Portfolio Creativo</div>
+        <div class="card-desc">Portfolio minimalista para diseñadores, fotógrafos y creativos. Proyectos, sobre mí y contacto.</div>
+        <div class="card-footer">
+          <div>
+            <span class="card-price">17€<span class="original">34€</span></span>
+            <div class="card-rating"><span class="stars">★★★★★</span> 4.9 (102)</div>
+          </div>
+          <button class="buy-btn" onclick="event.stopPropagation(); openModal('portfolio')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="template-card reveal" data-cat="agency" onclick="openModal('agency')">
+      <div class="card-preview">
+        <iframe src="templates/agency/index.html" title="Agency Template" loading="lazy"></iframe>
+        <div class="card-overlay">
+          <a href="templates/agency/index.html" target="_blank" class="preview-btn" onclick="e=>e.stopPropagation()">Vista previa →</a>
+          <button class="buy-btn-card" onclick="event.stopPropagation(); openModal('agency')">Comprar</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-agency">Agencia</span>
+        </div>
+        <div class="card-name">Apex — Agencia Digital</div>
+        <div class="card-desc">Web corporativa para agencias de marketing, diseño y desarrollo. Servicios, equipo y casos de éxito.</div>
+        <div class="card-footer">
+          <div>
+            <span class="card-price">29€<span class="original">59€</span></span>
+            <div class="card-rating"><span class="stars">★★★★★</span> 4.7 (45)</div>
+          </div>
+          <button class="buy-btn" onclick="event.stopPropagation(); openModal('agency')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="template-card reveal" data-cat="ecommerce" onclick="openModal('ecommerce')">
+      <div class="card-preview">
+        <iframe src="templates/ecommerce/index.html" title="Ecommerce Template" loading="lazy"></iframe>
+        <div class="card-overlay">
+          <a href="templates/ecommerce/index.html" target="_blank" class="preview-btn" onclick="e=>e.stopPropagation()">Vista previa →</a>
+          <button class="buy-btn-card" onclick="event.stopPropagation(); openModal('ecommerce')">Comprar</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-ecommerce">E-commerce</span>
+        </div>
+        <div class="card-name">Shopline — Tienda Online</div>
+        <div class="card-desc">Plantilla de tienda completa con catálogo, fichas de producto, carrito y checkout. Optimizada para ventas.</div>
+        <div class="card-footer">
+          <div>
+            <span class="card-price">34€<span class="original">69€</span></span>
+            <div class="card-rating"><span class="stars">★★★★★</span> 4.8 (78)</div>
+          </div>
+          <button class="buy-btn" onclick="event.stopPropagation(); openModal('ecommerce')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="template-card reveal" data-cat="startup" onclick="openModal('startup')">
+      <div class="card-preview">
+        <iframe src="templates/startup/index.html" title="Startup Template" loading="lazy"></iframe>
+        <div class="card-overlay">
+          <a href="templates/startup/index.html" target="_blank" class="preview-btn" onclick="e=>e.stopPropagation()">Vista previa →</a>
+          <button class="buy-btn-card" onclick="event.stopPropagation(); openModal('startup')">Comprar</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-startup">Startup</span>
+        </div>
+        <div class="card-name">Velo — Startup MVP</div>
+        <div class="card-desc">Landing de captación para startups y productos en lanzamiento. Waitlist, features y pitch deck integrado.</div>
+        <div class="card-footer">
+          <div>
+            <span class="card-price">22€<span class="original">44€</span></span>
+            <div class="card-rating"><span class="stars">★★★★★</span> 4.9 (57)</div>
+          </div>
+          <button class="buy-btn" onclick="event.stopPropagation(); openModal('startup')">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BUNDLE BANNER -->
+<section style="padding: 0 4rem 5rem;">
+  <div class="pricing-banner reveal">
+    <div>
+      <div class="banner-title">Bundle Completo 🎁<br>Todas las plantillas</div>
+      <div class="banner-sub">6 plantillas premium · Actualizaciones incluidas · Licencia ilimitada</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:2.5rem;">
+      <div class="bundle-price">
+        <div class="old">145€</div>
+        <div class="new">79€</div>
+      </div>
+      <button class="btn-primary" onclick="openModal('bundle')" style="white-space:nowrap;">Comprar bundle</button>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="section-label">Proceso</div>
+  <h2 class="section-title">Tan fácil como 1, 2, 3</h2>
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Elige tu plantilla</div>
+      <div class="step-desc">Explora el catálogo, filtra por categoría y haz clic en "Vista previa" para verla en acción.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Completa el pago</div>
+      <div class="step-desc">Pago seguro con tarjeta o PayPal a través de Gumroad. Proceso en menos de 1 minuto.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Descarga y lanza</div>
+      <div class="step-desc">Recibes el ZIP al instante en tu correo. Descomprime, edita con tu contenido y publica.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="section-label">Opiniones</div>
+  <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+  <div class="testimonials-grid reveal">
+    <div class="testimonial">
+      <p class="testimonial-text">Compré la plantilla de agencia y en 2 horas tenía mi web lista. El código es limpio, moderno y fácil de adaptar. Totalmente recomendable.</p>
+      <div class="author">
+        <div class="avatar" style="background:var(--accent);">MR</div>
+        <div>
+          <div class="author-name">Marc Rodríguez</div>
+          <div class="author-role">Freelance Designer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-text">La plantilla de restaurante es increíble. Mis clientes se quedaron sorprendidos del resultado. Relación calidad-precio imbatible.</p>
+      <div class="author">
+        <div class="avatar" style="background:var(--accent2);">LP</div>
+        <div>
+          <div class="author-name">Laura Pérez</div>
+          <div class="author-role">Dueña de restaurante</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-text">Compré el bundle completo y fue la mejor inversión. 6 plantillas profesionales por lo que cuesta un café al día. Increíble.</p>
+      <div class="author">
+        <div class="avatar" style="background:#a78bfa;">JG</div>
+        <div>
+          <div class="author-name">Jordi Garcia</div>
+          <div class="author-role">Desarrollador web</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-label">Preguntas frecuentes</div>
+  <h2 class="section-title" style="text-align:center;">Todo lo que necesitas saber</h2>
+  <div class="faq reveal">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Cómo recibo la plantilla tras el pago?</div>
+      <div class="faq-a">Inmediatamente después del pago recibirás un email de Gumroad con el enlace de descarga. El archivo ZIP incluye todos los archivos de la plantilla listos para usar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Necesito conocimientos de programación?</div>
+      <div class="faq-a">No es necesario. Las plantillas están en HTML y CSS puro, con comentarios claros que explican cada sección. Solo necesitas editar textos e imágenes en un editor básico como VS Code.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Puedo usarla en proyectos de clientes?</div>
+      <div class="faq-a">Sí. La licencia personal te permite usar la plantilla en un proyecto propio o de cliente. Para uso en múltiples proyectos de clientes, contacta con nosotros para la licencia extendida.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Ofrecéis soporte técnico?</div>
+      <div class="faq-a">Sí, ofrecemos soporte por email durante 30 días desde la compra para resolver dudas de instalación y personalización básica. Escríbenos a soporte@templateforge.com.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Admitís devoluciones?</div>
+      <div class="faq-a">Dado que son productos digitales descargables, no ofrecemos devoluciones una vez descargado el archivo. Si tienes algún problema, escríbenos antes de comprar y lo resolvemos.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Son plantillas exclusivas o vendidas a muchos?</div>
+      <div class="faq-a">Son plantillas no exclusivas: varios compradores pueden adquirirlas. El precio refleja esto. Si necesitas una plantilla 100% exclusiva, contáctanos para un presupuesto de diseño personalizado.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Template<span>Forge</span></a>
+  <div class="footer-links">
+    <a href="#plantillas">Plantillas</a>
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#faq">FAQ</a>
+    <a href="mailto:soporte@templateforge.com">Contacto</a>
+  </div>
+  <div class="footer-copy">© 2024 TemplateForge. Hecho con ♥</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Plantilla</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalTag"></div>
+    <p class="modal-desc" id="modalDesc"></p>
+    <ul class="modal-features" id="modalFeatures"></ul>
+    <div class="modal-price-row">
+      <div>
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-price-old" id="modalPriceOld"></div>
+      </div>
+      <div style="font-size:0.78rem;color:var(--muted);text-align:right;">Pago único<br>Descarga inmediata</div>
+    </div>
+    <button class="gumroad-btn" id="modalBuyBtn" onclick="goToGumroad()">💳 Comprar ahora — Pago seguro</button>
+    <div class="modal-guarantee">🔒 Pago seguro · Descarga inmediata · Factura incluida</div>
+  </div>
+</div>
+
+<script>
+// ─── TEMPLATE DATA ───
+const templates = {
+  saas: {
+    title: 'NexusApp — SaaS Landing',
+    tag: '<span class="tag tag-saas" style="margin-bottom:1rem;display:inline-block;">SaaS</span>',
+    desc: 'Landing page de alto impacto diseñada para productos SaaS. Hero con animación, tabla de precios, testimonios, FAQ e integración con herramientas de pago. Optimizada para conversión.',
+    features: ['Hero animado con CTA doble','Sección de precios con toggle mensual/anual','Testimonios y logos de clientes','FAQ desplegable','100% responsive · Dark mode','HTML + CSS + JS puro · Sin dependencias'],
+    price: '19€', oldPrice: 'antes 39€',
+    gumroad: 'https://gumroad.com/l/TU_LINK_SAAS' // ← cambia esto
+  },
+  restaurant: {
+    title: 'Saveur — Restaurante Gourmet',
+    tag: '<span class="tag tag-restaurant" style="margin-bottom:1rem;display:inline-block;">Restaurante</span>',
+    desc: 'Diseño elegante y apetitoso para restaurantes, bares, cafeterías y food trucks. Incluye menú interactivo, formulario de reservas, galería de fotos y mapa de localización.',
+    features: ['Hero con vídeo de fondo','Menú interactivo con categorías','Formulario de reserva funcional','Galería masonry','Sección de historia / sobre nosotros','Integración Google Maps'],
+    price: '24€', oldPrice: 'antes 49€',
+    gumroad: 'https://gumroad.com/l/TU_LINK_RESTAURANT'
+  },
+  portfolio: {
+    title: 'Folio — Portfolio Creativo',
+    tag: '<span class="tag tag-portfolio" style="margin-bottom:1rem;display:inline-block;">Portfolio</span>',
+    desc: 'Portfolio minimalista y moderno para diseñadores, fotógrafos, ilustradores y creativos. Con grid de proyectos, página de detalle, sección sobre mí y formulario de contacto.',
+    features: ['Grid de proyectos filtrable','Lightbox de imágenes','Animaciones suaves al scroll','Modo oscuro / claro','Formulario de contacto funcional','Diseño tipográfico distintivo'],
+    price: '17€', oldPrice: 'antes 34€',
+    gumroad: 'https://gumroad.com/l/TU_LINK_PORTFOLIO'
+  },
+  agency: {
+    title: 'Apex — Agencia Digital',
+    tag: '<span class="tag tag-agency" style="margin-bottom:1rem;display:inline-block;">Agencia</span>',
+    desc: 'Web corporativa profesional para agencias de marketing, diseño, desarrollo y consultoría. Servicios, equipo, casos de éxito, blog y formulario de contacto.',
+    features: ['Hero con partículas animadas','Sección de servicios con iconos','Grid de equipo con hover','Casos de éxito / portfolio','Blog integrado (estructura)','Formulario de presupuesto'],
+    price: '29€', oldPrice: 'antes 59€',
+    gumroad: 'https://gumroad.com/l/TU_LINK_AGENCY'
+  },
+  ecommerce: {
+    title: 'Shopline — Tienda Online',
+    tag: '<span class="tag tag-ecommerce" style="margin-bottom:1rem;display:inline-block;">E-commerce</span>',
+    desc: 'Plantilla de tienda online completa con catálogo de productos, fichas individuales, filtros por categoría, carrito lateral y página de checkout. Lista para conectar con tu backend.',
+    features: ['Página home con hero + productos destacados','Catálogo con filtros y búsqueda','Ficha de producto completa','Carrito lateral (sidebar)','Checkout de un paso','Diseño orientado a conversión'],
+    price: '34€', oldPrice: 'antes 69€',
+    gumroad: 'https://gumroad.com/l/TU_LINK_ECOMMERCE'
+  },
+  startup: {
+    title: 'Velo — Startup MVP',
+    tag: '<span class="tag tag-startup" style="margin-bottom:1rem;display:inline-block;">Startup</span>',
+    desc: 'Landing de captación para startups, productos en lanzamiento y apps en beta. Optimizada para registros en waitlist, con sección de características, roadmap y precios freemium.',
+    features: ['Hero con contador de waitlist','Sección de features con animaciones','Roadmap visual','Tabla de precios freemium','Social proof / métricas','Formulario de captura de email'],
+    price: '22€', oldPrice: 'antes 44€',
+    gumroad: 'https://gumroad.com/l/TU_LINK_STARTUP'
+  },
+  bundle: {
+    title: 'Bundle Completo — 6 Plantillas',
+    tag: '<span style="background:rgba(240,255,68,0.1);color:var(--accent);padding:0.2rem 0.7rem;border-radius:4px;font-size:0.75rem;font-weight:600;letter-spacing:0.06em;margin-bottom:1rem;display:inline-block;">🎁 MEJOR PRECIO</span>',
+    desc: 'Consigue las 6 plantillas premium en un solo pago. SaaS, Restaurante, Portfolio, Agencia, E-commerce y Startup. Ahorra más del 45% frente a comprarlas individualmente.',
+    features: ['6 plantillas completas en un ZIP','Licencia para proyectos ilimitados','Actualizaciones gratuitas de por vida','Soporte prioritario 60 días','Documentación detallada','Acceso a futuras plantillas del bundle'],
+    price: '79€', oldPrice: 'antes 145€',
+    gumroad: 'https://gumroad.com/l/TU_LINK_BUNDLE'
+  }
+};
+
+let currentGumroad = '';
+
+function openModal(key) {
+  const t = templates[key];
+  document.getElementById('modalTitle').textContent = t.title;
+  document.getElementById('modalTag').innerHTML = t.tag;
+  document.getElementById('modalDesc').textContent = t.desc;
+  document.getElementById('modalFeatures').innerHTML = t.features.map(f => `<li>${f}</li>`).join('');
+  document.getElementById('modalPrice').textContent = t.price;
+  document.getElementById('modalPriceOld').textContent = t.oldPrice;
+  currentGumroad = t.gumroad;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function goToGumroad() {
+  window.open(currentGumroad, '_blank');
+}
+
+// ─── FILTER ───
+function filterTemplates(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.template-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// ─── FAQ ───
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── ESC CLOSE MODAL ───
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
